@@ -1,101 +1,53 @@
-// ==============================
-// NERO BARBER STUDIO
-// Main JavaScript
-// ==============================
+const WHATSAPP_NUMBER = "593999999999";
+
+const bookingMessage =
+  "Hola, quiero reservar una cita en NERO Barber Studio. ¿Qué horarios tienen disponibles?";
+
+const waLink =
+  "https://wa.me/" +
+  WHATSAPP_NUMBER +
+  "?text=" +
+  encodeURIComponent(bookingMessage);
 
 
-// ==============================
-// MOBILE MENU
-// ==============================
+// BOTÓN DE RESERVA
+const bookingBtn = document.getElementById("bookingBtn");
 
-const menuToggle = document.getElementById("menuToggle");
+if (bookingBtn) {
+  bookingBtn.href = waLink;
+}
+
+
+// BOTÓN FLOTANTE DE WHATSAPP
+const waFloat = document.getElementById("waFloat");
+
+if (waFloat) {
+  waFloat.href = waLink;
+}
+
+
+// MENÚ PARA CELULAR
+const menuBtn = document.getElementById("menuBtn");
 const navLinks = document.getElementById("navLinks");
 
-menuToggle.addEventListener("click", () => {
-    navLinks.classList.toggle("active");
-});
+if (menuBtn && navLinks) {
+
+  menuBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("open");
+  });
+
+}
 
 
-// Close menu after clicking a link
+// CERRAR MENÚ AL TOCAR UN ENLACE
+document.querySelectorAll("#navLinks a").forEach((link) => {
 
-document.querySelectorAll(".nav-links a").forEach(link => {
+  link.addEventListener("click", () => {
 
-    link.addEventListener("click", () => {
-        navLinks.classList.remove("active");
-    });
-
-});
-
-
-// ==============================
-// HEADER SCROLL EFFECT
-// ==============================
-
-const header = document.querySelector(".header");
-
-window.addEventListener("scroll", () => {
-
-    if (window.scrollY > 50) {
-        header.style.background = "rgba(8, 8, 8, 0.92)";
-        header.style.backdropFilter = "blur(12px)";
-    } else {
-        header.style.background = "transparent";
-        header.style.backdropFilter = "none";
+    if (navLinks) {
+      navLinks.classList.remove("open");
     }
 
-});
-
-
-// ==============================
-// SCROLL REVEAL
-// ==============================
-
-const revealElements = document.querySelectorAll(
-    ".service-card, .testimonial, .gallery-item, .about-content, .about-image, .stat"
-);
-
-const observer = new IntersectionObserver(
-    entries => {
-
-        entries.forEach(entry => {
-
-            if (entry.isIntersecting) {
-
-                entry.target.style.opacity = "1";
-                entry.target.style.transform = "translateY(0)";
-
-                observer.unobserve(entry.target);
-            }
-
-        });
-
-    },
-    {
-        threshold: 0.12
-    }
-);
-
-
-revealElements.forEach(element => {
-
-    element.style.opacity = "0";
-    element.style.transform = "translateY(25px)";
-    element.style.transition = "opacity 0.7s ease, transform 0.7s ease";
-
-    observer.observe(element);
+  });
 
 });
-
-
-// ==============================
-// CURRENT YEAR
-// ==============================
-
-const year = new Date().getFullYear();
-
-const copyright = document.querySelector(".copyright span");
-
-if (copyright) {
-    copyright.textContent =
-        `© ${year} NERO Barber Studio`;
-      }
